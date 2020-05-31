@@ -116,11 +116,11 @@ namespace YoutubeExplode.Tests
         }
 
         [Theory]
-        [InlineData("UCEnBXANsKmyj2r9xVyKoDiQ")]
-        public async Task I_can_get_the_channel_details_without_logourl_when_requesting_uploads(string channelId)
+        public async Task I_can_get_the_channel_details_without_logourl_when_requesting_uploads()
         {
             // Arrange
             const int maxVideoCount = 10;
+            const string channelId = "UCEnBXANsKmyj2r9xVyKoDiQ";
             const string channelUrl = "https://www.youtube.com/channel/UCEnBXANsKmyj2r9xVyKoDiQ";
             var youtube = new YoutubeClient();
 

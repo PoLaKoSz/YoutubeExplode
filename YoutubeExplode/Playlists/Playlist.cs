@@ -1,3 +1,4 @@
+using YoutubeExplode.Channels;
 using YoutubeExplode.Common;
 
 namespace YoutubeExplode.Playlists
@@ -23,10 +24,16 @@ namespace YoutubeExplode.Playlists
         public string Title { get; }
 
         /// <summary>
-        /// Playlist author.
         /// Can be null if it's a system playlist (e.g. Video Mix, Topics, etc.).
         /// </summary>
-        public string? Author { get; }
+        [System.Obsolete("This property will be removed in the next major release (6.0)! Use Uploader.Title instead!", error: false)]
+        public string? Author => Uploader?.Title;
+
+        /// <summary>
+        /// Playlist uploader.
+        /// Can be null if it's a system playlist (e.g. Video Mix, Topics, etc.).
+        /// </summary>
+        public Channel? Uploader { get; }
 
         /// <summary>
         /// Playlist description.
@@ -41,11 +48,11 @@ namespace YoutubeExplode.Playlists
         /// <summary>
         /// Initializes an instance of <see cref="Playlist"/>.
         /// </summary>
-        public Playlist(PlaylistId id, string title, string? author, string description, Engagement engagement)
+        public Playlist(PlaylistId id, string title, Channel? uploader, string description, Engagement engagement)
         {
             Id = id;
             Title = title;
-            Author = author;
+            Uploader = uploader;
             Description = description;
             Engagement = engagement;
         }

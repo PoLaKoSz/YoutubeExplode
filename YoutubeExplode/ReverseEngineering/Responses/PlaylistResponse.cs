@@ -20,13 +20,9 @@ namespace YoutubeExplode.ReverseEngineering.Responses
             .GetProperty("title")
             .GetString();
 
-        public string? TryGetAuthor() => _root
-            .GetPropertyOrNull("author")?
-            .GetString();
-
-        public string? GetUploader() => _root
-            .GetPropertyOrNull("author")?
-            .GetString();
+        public Channel? TryGetUploader() => _root
+            .TryGetProperty
+        new Channel(_root);
 
         public string? TryGetDescription() => _root
             .GetPropertyOrNull("description")?
@@ -115,13 +111,13 @@ namespace YoutubeExplode.ReverseEngineering.Responses
 
             public Channel(JsonElement root) => _root = root;
 
-            public string GetChannelId() => _root
-                .GetProperty("user_id")
+            public string? TryGetChannelId() => _root
+                .GetPropertyOrNull("user_id")?
                 .GetString()
                 .Pipe(id => "UC" + id);
 
-            public string GetChannelTitle() => _root
-                .GetProperty("author")
+            public string? TryGetChannelTitle() => _root
+                .GetPropertyOrNull("author")?
                 .GetString();
         }
     }

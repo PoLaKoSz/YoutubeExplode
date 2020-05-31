@@ -29,11 +29,15 @@ namespace YoutubeExplode.Playlists
         public async Task<Playlist> GetAsync(PlaylistId id)
         {
             var response = await PlaylistResponse.GetAsync(_httpClient, id);
+            var channel = response.TryGetUploader();
 
             return new Playlist(
                 id,
                 response.GetTitle(),
-                response.TryGetAuthor(),
+                new Channel(
+                    channel.TryGetChannelId(),
+                    channel?.TryGetChannelTitle()
+                ) ?? null,
                 response.TryGetDescription() ?? "", new Engagement(
                     response.TryGetViewCount() ?? 0,
                     response.TryGetLikeCount() ?? 0,
@@ -67,8 +71,8 @@ namespace YoutubeExplode.Playlists
                         videoId,
                         video.GetTitle(),
                         new Channel(
-                            channel.GetChannelId(),
-                            channel.GetChannelTitle()
+                            channel.TryGetChannelId(),
+                            channel.TryGetChannelTitle()
                         ),
                         video.GetUploadDate(),
                         video.GetDescription(),

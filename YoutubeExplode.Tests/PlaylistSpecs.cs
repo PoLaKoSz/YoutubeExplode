@@ -22,6 +22,9 @@ namespace YoutubeExplode.Tests
             playlist.Url.Should().Be(playlistUrl);
             playlist.Title.Should().Be("osu! Highlights");
             playlist.Author.Should().Be("Tyrrrz");
+            playlist.Uploader?.Id.Value.Should().Be("UCEnBXANsKmyj2r9xVyKoDiQ");
+            playlist.Uploader?.Title.Should().Be("Tyrrrz");
+            playlist.Uploader?.LogoUrl.Should().BeNull();
             playlist.Description.Should().Be("My best osu! plays");
             playlist.Engagement.ViewCount.Should().BeGreaterOrEqualTo(133);
             playlist.Engagement.LikeCount.Should().BeGreaterOrEqualTo(0);

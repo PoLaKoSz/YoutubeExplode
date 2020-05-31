@@ -48,8 +48,8 @@ namespace YoutubeExplode.Search
                         videoId,
                         video.GetTitle(),
                         new Channel(
-                            channel.GetChannelId(),
-                            channel.GetChannelTitle()
+                            channel.TryGetChannelId(),
+                            channel.TryGetChannelTitle()
                         ),
                         video.GetUploadDate(),
                         video.GetDescription(),
