@@ -24,6 +24,10 @@ namespace YoutubeExplode.ReverseEngineering.Responses
             .GetPropertyOrNull("author")?
             .GetString();
 
+        public string? GetUploader() => _root
+            .GetPropertyOrNull("author")?
+            .GetString();
+
         public string? TryGetDescription() => _root
             .GetPropertyOrNull("description")?
             .GetString();
@@ -60,9 +64,7 @@ namespace YoutubeExplode.ReverseEngineering.Responses
                 .GetProperty("encrypted_id")
                 .GetString();
 
-            public string GetAuthor() => _root
-                .GetProperty("author")
-                .GetString();
+            public Channel GetUploader() => new Channel(_root);
 
             public DateTimeOffset GetUploadDate() => _root
                 .GetProperty("time_created")
@@ -105,6 +107,22 @@ namespace YoutubeExplode.ReverseEngineering.Responses
                 .Where(s => !string.IsNullOrWhiteSpace(s))
                 .Select(s => s.Trim('"'))
                 .ToArray();
+        }
+
+        public class Channel
+        {
+            private readonly JsonElement _root;
+
+            public Channel(JsonElement root) => _root = root;
+
+            public string GetChannelId() => _root
+                .GetProperty("user_id")
+                .GetString()
+                .Pipe(id => "UC" + id);
+
+            public string GetChannelTitle() => _root
+                .GetProperty("author")
+                .GetString();
         }
     }
 

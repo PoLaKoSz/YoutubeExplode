@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using YoutubeExplode.Channels;
 using YoutubeExplode.Common;
 using YoutubeExplode.ReverseEngineering;
 using YoutubeExplode.ReverseEngineering.Responses;
@@ -57,6 +57,7 @@ namespace YoutubeExplode.Playlists
                 foreach (var video in response.GetVideos())
                 {
                     var videoId = video.GetId();
+                    var channel = video.GetUploader();
 
                     // Skip already encountered videos
                     if (!encounteredVideoIds.Add(videoId))
@@ -65,7 +66,10 @@ namespace YoutubeExplode.Playlists
                     yield return new Video(
                         videoId,
                         video.GetTitle(),
-                        video.GetAuthor(),
+                        new Channel(
+                            channel.GetChannelId(),
+                            channel.GetChannelTitle()
+                        ),
                         video.GetUploadDate(),
                         video.GetDescription(),
                         video.GetDuration(),

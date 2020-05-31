@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using YoutubeExplode.Channels;
 using YoutubeExplode.Internal;
 using YoutubeExplode.Internal.Extensions;
 
@@ -35,10 +36,8 @@ namespace YoutubeExplode.ReverseEngineering.Responses
             .GetProperty("title")
             .GetString();
 
-        public string GetVideoAuthor() => _root
-            .GetProperty("videoDetails")
-            .GetProperty("author")
-            .GetString();
+        public Channel GetVideoUploader() => _root
+            .Pipe(root => new Channel(_root));
 
         public DateTimeOffset GetVideoUploadDate() => _root
             .GetProperty("microformat")
@@ -267,6 +266,22 @@ namespace YoutubeExplode.ReverseEngineering.Responses
                 .GetProperty("vssId")
                 .GetString()
                 .StartsWith("a.", StringComparison.OrdinalIgnoreCase);
+        }
+
+        public class Channel
+        {
+            private readonly JsonElement _root;
+
+            public Channel(JsonElement root) => _root = root;
+
+            public string GetChannelId() => _root
+                .GetProperty("user_id")
+                .GetString()
+                .Pipe(id => "UC" + id);
+
+            public string GetChannelTitle() => _root
+                .GetProperty("author")
+                .GetString();
         }
     }
 

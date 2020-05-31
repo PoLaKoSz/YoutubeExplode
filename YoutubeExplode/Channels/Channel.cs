@@ -22,13 +22,24 @@ namespace YoutubeExplode.Channels
 
         /// <summary>
         /// URL of the channel's logo image.
+        /// Can be null if this <see cref="Channel" /> populated
+        /// in a search query.
         /// </summary>
-        public string LogoUrl { get; }
+        public string? LogoUrl { get; }
+
+        /// <summary>
+        /// Initializes an instance of <see cref="Channel"/>
+        /// without a logo.
+        /// </summary>
+        public Channel(ChannelId id, string title)
+            : this(id, title, null)
+        {
+        }
 
         /// <summary>
         /// Initializes an instance of <see cref="Channel"/>.
         /// </summary>
-        public Channel(ChannelId id, string title, string logoUrl)
+        public Channel(ChannelId id, string title, string? logoUrl)
         {
             Id = id;
             Title = title;

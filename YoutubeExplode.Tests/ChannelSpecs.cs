@@ -114,5 +114,29 @@ namespace YoutubeExplode.Tests
             videos.Should().NotBeEmpty();
             videos.Should().HaveCountLessOrEqualTo(maxVideoCount);
         }
+
+        [Theory]
+        [InlineData("UCEnBXANsKmyj2r9xVyKoDiQ")]
+        public async Task I_can_get_the_channel_details_without_logourl_when_requesting_uploads(string channelId)
+        {
+            // Arrange
+            const int maxVideoCount = 10;
+            const string channelUrl = "https://www.youtube.com/channel/UCEnBXANsKmyj2r9xVyKoDiQ";
+            var youtube = new YoutubeClient();
+
+            // Act
+            var videos = await youtube.Channels.GetUploadsAsync(channelId).BufferAsync(maxVideoCount);
+
+            // Assert
+            foreach (var video in videos)
+            {
+                var channel = video.Uploader;
+                channel.Should().NotBeNull();
+                channel.Id.Value.Should().Be(channelId);
+                channel.Url.Should().Be(channelUrl);
+                channel.Title.Should().Be("Tyrrrz");
+                channel.LogoUrl.Should().BeNull();
+            }
+        }
     }
 }

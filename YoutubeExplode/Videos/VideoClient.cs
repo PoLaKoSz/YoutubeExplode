@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using YoutubeExplode.Channels;
 using YoutubeExplode.Common;
 using YoutubeExplode.ReverseEngineering;
 using YoutubeExplode.ReverseEngineering.Responses;
@@ -43,13 +44,17 @@ namespace YoutubeExplode.Videos
         {
             var videoInfoResponse = await VideoInfoResponse.GetAsync(_httpClient, id);
             var playerResponse = videoInfoResponse.GetPlayerResponse();
+            var channelResponse = playerResponse.GetVideoUploader();
 
             var watchPage = await WatchPage.GetAsync(_httpClient, id);
 
             return new Video(
                 id,
                 playerResponse.GetVideoTitle(),
-                playerResponse.GetVideoAuthor(),
+                new Channel(
+                    channelResponse.GetChannelId(),
+                    channelResponse.GetChannelTitle()
+                ),
                 playerResponse.GetVideoUploadDate(),
                 playerResponse.GetVideoDescription(),
                 playerResponse.GetVideoDuration(),

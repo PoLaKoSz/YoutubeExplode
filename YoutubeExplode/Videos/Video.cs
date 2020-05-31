@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using YoutubeExplode.Channels;
 using YoutubeExplode.Common;
 
 namespace YoutubeExplode.Videos
@@ -27,7 +28,13 @@ namespace YoutubeExplode.Videos
         /// <summary>
         /// Video author.
         /// </summary>
-        public string Author { get; }
+        [System.Obsolete("This property will be removed in the next major release (6.0)! Use Uploader.Title instead!", error: false)]
+        public string Author => Uploader.Title;
+
+        /// <summary>
+        /// Video uploader.
+        /// </summary>
+        public Channel Uploader { get; }
 
         /// <summary>
         /// Video upload date.
@@ -65,7 +72,7 @@ namespace YoutubeExplode.Videos
         public Video(
             VideoId id,
             string title,
-            string author,
+            Channel uploader,
             DateTimeOffset uploadDate,
             string description,
             TimeSpan duration,
@@ -75,7 +82,7 @@ namespace YoutubeExplode.Videos
         {
             Id = id;
             Title = title;
-            Author = author;
+            Uploader = uploader;
             UploadDate = uploadDate;
             Description = description;
             Duration = duration;
