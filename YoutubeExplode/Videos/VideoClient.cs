@@ -44,9 +44,10 @@ namespace YoutubeExplode.Videos
         {
             var videoInfoResponse = await VideoInfoResponse.GetAsync(_httpClient, id);
             var playerResponse = videoInfoResponse.GetPlayerResponse();
-            var channelResponse = playerResponse.GetVideoUploader();
 
             var watchPage = await WatchPage.GetAsync(_httpClient, id);
+
+            var channelResponse = playerResponse.GetVideoUploader();
 
             return new Video(
                 id,

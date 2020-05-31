@@ -37,7 +37,8 @@ namespace YoutubeExplode.ReverseEngineering.Responses
             .GetString();
 
         public Channel GetVideoUploader() => _root
-            .Pipe(root => new Channel(_root));
+            .GetProperty("videoDetails")
+            .Pipe(token => new Channel(token));
 
         public DateTimeOffset GetVideoUploadDate() => _root
             .GetProperty("microformat")
@@ -275,9 +276,8 @@ namespace YoutubeExplode.ReverseEngineering.Responses
             public Channel(JsonElement root) => _root = root;
 
             public string GetChannelId() => _root
-                .GetProperty("user_id")
-                .GetString()
-                .Pipe(id => "UC" + id);
+                .GetProperty("channelId")
+                .GetString();
 
             public string GetChannelTitle() => _root
                 .GetProperty("author")
