@@ -11,7 +11,7 @@ namespace YoutubeExplode.Channels
     /// <summary>
     /// Queries related to YouTube channels.
     /// </summary>
-    public class ChannelClient
+    public class ChannelClient : IChannelClient
     {
         private readonly YoutubeHttpClient _httpClient;
 

@@ -12,7 +12,7 @@ namespace YoutubeExplode
     /// <summary>
     /// Entry point for <see cref="YoutubeExplode"/>.
     /// </summary>
-    public partial class YoutubeClient
+    public partial class YoutubeClient : IYoutubeClient
     {
         /// <summary>
         /// Queries related to YouTube videos.

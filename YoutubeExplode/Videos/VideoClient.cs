@@ -13,7 +13,7 @@ namespace YoutubeExplode.Videos
     /// <summary>
     /// Queries related to YouTube videos.
     /// </summary>
-    public class VideoClient
+    public class VideoClient : IVideoClient
     {
         private readonly YoutubeHttpClient _httpClient;
 

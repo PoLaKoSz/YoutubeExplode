@@ -12,7 +12,7 @@ namespace YoutubeExplode.Playlists
     /// <summary>
     /// Queries related to YouTube playlists.
     /// </summary>
-    public class PlaylistClient
+    public class PlaylistClient : IPlaylistClient
     {
         private readonly YoutubeHttpClient _httpClient;
 

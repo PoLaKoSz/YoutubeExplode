@@ -9,7 +9,7 @@ namespace YoutubeExplode.Search
     /// <summary>
     /// YouTube search queries.
     /// </summary>
-    public class SearchClient
+    public class SearchClient : ISearchClient
     {
         private readonly YoutubeHttpClient _httpClient;
 

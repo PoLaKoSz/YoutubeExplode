@@ -12,7 +12,7 @@ namespace YoutubeExplode.Videos.ClosedCaptions
     /// <summary>
     /// Queries related to closed captions of YouTube videos.
     /// </summary>
-    public class ClosedCaptionClient
+    public class ClosedCaptionClient : IClosedCaptionClient
     {
         private readonly YoutubeHttpClient _httpClient;
 
